@@ -109,8 +109,6 @@ Everything works perfectly — camera, GPS, haptic feedback, text-to-speech, dar
 5. Press F5
 
 ---
-
-## Project Structure
 MyTravelLog/
 │
 ├── App.xaml
@@ -184,7 +182,6 @@ MyTravelLog/
     ├── 6.png
     ├── 7.png
     └── 8.png
-
 ---
 
 ## Screenshots
