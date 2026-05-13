@@ -213,50 +213,6 @@ connected via USB with USB Debugging enabled.
 
 ---
 
-## Project Structure
-
-```
-MyTravelLog/
-├── Models/
-│   └── PlaceModel.cs
-├── Services/
-│   ├── DatabaseService.cs
-│   ├── PlaceDataService.cs
-│   ├── CameraService.cs
-│   ├── LocationService.cs
-│   ├── HapticService.cs
-│   ├── TextToSpeechService.cs
-│   ├── AccelerometerService.cs
-│   └── SettingsService.cs
-├── ViewModels/
-│   ├── BaseViewModel.cs
-│   ├── HomeViewModel.cs
-│   ├── AddPlaceViewModel.cs
-│   ├── PlacesListViewModel.cs
-│   ├── PlaceDetailViewModel.cs
-│   └── SettingsViewModel.cs
-├── Views/
-│   ├── HomePage.xaml
-│   ├── AddPlacePage.xaml
-│   ├── PlacesListPage.xaml
-│   ├── PlaceDetailPage.xaml
-│   └── SettingsPage.xaml
-├── Helpers/
-│   ├── Converters.cs
-│   └── ValidationHelper.cs
-├── Resources/Styles/
-│   ├── Colors.xaml
-│   └── Styles.xaml
-└── Platforms/
-    ├── Android/
-    │   ├── AndroidManifest.xml
-    │   └── Resources/xml/file_paths.xml
-    └── Windows/
-        └── App.xaml
-```
-
----
-
 ## Screenshots
 
 ![Home Page](Screenshots/1.png)
