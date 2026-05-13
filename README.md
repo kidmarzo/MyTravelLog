@@ -111,7 +111,7 @@ Everything works perfectly — camera, GPS, haptic feedback, text-to-speech, dar
 
 
 ## Project Structure
----
+
 MyTravelLog/
 │
 ├── App.xaml
