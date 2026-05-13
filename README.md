@@ -107,7 +107,10 @@ Everything works perfectly — camera, GPS, haptic feedback, text-to-speech, dar
 3. Restore NuGet packages if needed
 4. Select Windows Machine or Android device from the toolbar
 5. Press F5
+---
 
+
+## Project Structure
 ---
 MyTravelLog/
 │
@@ -182,6 +185,7 @@ MyTravelLog/
     ├── 6.png
     ├── 7.png
     └── 8.png
+
 ---
 
 ## Screenshots
