@@ -1,5 +1,3 @@
-Here's your updated README — simple, human, and accurate:
-
 ```markdown
 # MyTravelLog 🌍
 
