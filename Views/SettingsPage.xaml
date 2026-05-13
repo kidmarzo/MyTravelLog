@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MyTravelLog.Views.SettingsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:MyTravelLog.ViewModels"
+    Title="Settings"
+    AutomationProperties.Name="App settings page">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20,16" Spacing="0">
+
+            <!-- ════════════════════════ APPEARANCE ════════════════════════ -->
+            <Label Style="{StaticResource SectionHeader}" Text="APPEARANCE" />
+
+            <Frame Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="16">
+
+                    <!-- Dark Mode toggle -->
+                    <Grid ColumnDefinitions="*,Auto">
+                        <VerticalStackLayout Grid.Column="0" Spacing="2">
+                            <Label Style="{StaticResource TitleLabel}" FontSize="16" Text="Dark Mode" />
+                            <Label Style="{StaticResource SubtitleLabel}" FontSize="13" Text="Reduces eye strain in low-light environments." />
+                        </VerticalStackLayout>
+                        <Switch
+                            Grid.Column="1"
+                            IsToggled="{Binding IsDarkMode}"
+                            VerticalOptions="Center"
+                            ThumbColor="{StaticResource Accent}"
+                            OnColor="{StaticResource Primary}"
+                            AutomationProperties.Name="Dark mode toggle"
+                            AutomationProperties.HelpText="Enables or disables the dark colour theme across the entire application" />
+                    </Grid>
+
+                    <BoxView HeightRequest="1" Color="{AppThemeBinding Light={StaticResource DividerColor}, Dark={StaticResource DarkDividerColor}}" />
+
+                    <!-- Font Size picker -->
+                    <VerticalStackLayout Spacing="6">
+                        <Label Style="{StaticResource TitleLabel}" FontSize="16" Text="Font Size" />
+                        <Label Style="{StaticResource SubtitleLabel}" FontSize="13" Text="Choose a comfortable reading size." />
+                        <Picker
+                            Title="Select font size"
+                            SelectedIndex="{Binding SelectedFontIndex}"
+                            ItemsSource="{Binding FontSizeOptions}"
+                            ItemDisplayBinding="{Binding Label}"
+                            TextColor="{AppThemeBinding Light={StaticResource PrimaryTextColor}, Dark={StaticResource DarkPrimaryTextColor}}"
+                            BackgroundColor="{AppThemeBinding Light={StaticResource InputBackgroundColor}, Dark={StaticResource DarkInputBackgroundColor}}"
+                            HeightRequest="52"
+                            AutomationProperties.Name="Font size picker"
+                            AutomationProperties.HelpText="Choose between Small 14pt, Medium 18pt, and Large 22pt font sizes" />
+
+                        <!-- Live preview of selected font size -->
+                        <Label
+                            Style="{StaticResource BodyLabel}"
+                            FontSize="{Binding SelectedFontSize}"
+                            Text="The quick brown fox jumps over the lazy dog."
+                            Margin="0,4,0,0"
+                            AutomationProperties.Name="Font size preview text" />
+                    </VerticalStackLayout>
+
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- ════════════════════════ ACCESSIBILITY ════════════════════════ -->
+            <Label Style="{StaticResource SectionHeader}" Text="HELP &amp; ACCESSIBILITY" />
+
+            <Frame Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="10">
+
+                    <Label Style="{StaticResource TitleLabel}" FontSize="16" Text="Accessibility Features" />
+
+                    <!-- WCAG reference -->
+                    <Label
+                        Style="{StaticResource SubtitleLabel}"
+                        FontSize="13"
+                        Text="This app follows WCAG 2.1 AA guidelines to ensure it is usable by as many people as possible."
+                        AutomationProperties.Name="WCAG compliance statement: This app follows WCAG 2.1 AA guidelines" />
+
+                    <BoxView HeightRequest="1" Color="{AppThemeBinding Light={StaticResource DividerColor}, Dark={StaticResource DarkDividerColor}}" />
+
+                    <!-- Feature list -->
+                    <VerticalStackLayout Spacing="8">
+                        <Grid ColumnDefinitions="28,*" ColumnSpacing="8">
+                            <Label Grid.Column="0" Text="🌙" FontSize="16" AutomationProperties.IsInAccessibleTree="False" />
+                            <Label Grid.Column="1" Style="{StaticResource BodyLabel}" FontSize="13" Text="Dark mode reduces eye strain in low-light conditions." />
+                        </Grid>
+                        <Grid ColumnDefinitions="28,*" ColumnSpacing="8">
+                            <Label Grid.Column="0" Text="🔤" FontSize="16" AutomationProperties.IsInAccessibleTree="False" />
+                            <Label Grid.Column="1" Style="{StaticResource BodyLabel}" FontSize="13" Text="Adjustable font size (Small / Medium / Large) for comfortable reading." />
+                        </Grid>
+                        <Grid ColumnDefinitions="28,*" ColumnSpacing="8">
+                            <Label Grid.Column="0" Text="🔊" FontSize="16" AutomationProperties.IsInAccessibleTree="False" />
+                            <Label Grid.Column="1" Style="{StaticResource BodyLabel}" FontSize="13" Text="Text-to-Speech reads place descriptions aloud on the detail page." />
+                        </Grid>
+                        <Grid ColumnDefinitions="28,*" ColumnSpacing="8">
+                            <Label Grid.Column="0" Text="📱" FontSize="16" AutomationProperties.IsInAccessibleTree="False" />
+                            <Label Grid.Column="1" Style="{StaticResource BodyLabel}" FontSize="13" Text="All buttons meet the 44×44pt minimum touch target size." />
+                        </Grid>
+                        <Grid ColumnDefinitions="28,*" ColumnSpacing="8">
+                            <Label Grid.Column="0" Text="♿" FontSize="16" AutomationProperties.IsInAccessibleTree="False" />
+                            <Label Grid.Column="1" Style="{StaticResource BodyLabel}" FontSize="13" Text="Screen reader support: all controls have descriptive AutomationProperties." />
+                        </Grid>
+                        <Grid ColumnDefinitions="28,*" ColumnSpacing="8">
+                            <Label Grid.Column="0" Text="🎨" FontSize="16" AutomationProperties.IsInAccessibleTree="False" />
+                            <Label Grid.Column="1" Style="{StaticResource BodyLabel}" FontSize="13" Text="High contrast colour palette maintained in both light and dark themes." />
+                        </Grid>
+                    </VerticalStackLayout>
+
+                    <BoxView HeightRequest="1" Color="{AppThemeBinding Light={StaticResource DividerColor}, Dark={StaticResource DarkDividerColor}}" />
+
+                    <Label
+                        Style="{StaticResource SubtitleLabel}"
+                        FontSize="12"
+                        Text="Use your device's built-in accessibility settings (e.g. TalkBack on Android, Narrator on Windows) to enable a screen reader."
+                        AutomationProperties.Name="Screen reader instruction" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- ════════════════════════ RESET ════════════════════════ -->
+            <Label Style="{StaticResource SectionHeader}" Text="RESET" />
+
+            <Frame Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="8">
+                    <Label Style="{StaticResource SubtitleLabel}" FontSize="13" Text="Restore all settings to their factory defaults." />
+                    <Button
+                        Style="{StaticResource DangerButton}"
+                        Text="Reset to Defaults"
+                        Command="{Binding ResetDefaultsCommand}"
+                        AutomationProperties.Name="Reset to defaults button"
+                        AutomationProperties.HelpText="Resets dark mode and font size to their default values" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- ════════════════════════ ABOUT ════════════════════════ -->
+            <Label Style="{StaticResource SectionHeader}" Text="ABOUT" />
+
+            <Frame Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="6">
+                    <Label Style="{StaticResource TitleLabel}" FontSize="16" Text="MyTravelLog" />
+                    <Label Style="{StaticResource CaptionLabel}" Text="Version 1.0.0" AutomationProperties.Name="App version 1.0.0" />
+                    <Label Style="{StaticResource SubtitleLabel}" FontSize="13" Text="A cross-platform travel journal built with .NET MAUI and .NET 9.0." />
+                    <Label Style="{StaticResource CaptionLabel}" Text="Built for 6G6Z0014 – Mobile Computing" />
+                </VerticalStackLayout>
+            </Frame>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

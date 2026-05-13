@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="MyTravelLog.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:MyTravelLog.Views"
+    Shell.FlyoutBehavior="Disabled"
+    Title="MyTravelLog">
+
+    <!-- Bottom tab bar navigation -->
+    <TabBar>
+
+        <ShellContent
+            Title="Home"
+            ContentTemplate="{DataTemplate views:HomePage}"
+            Icon="home.png"
+            Route="HomePage" />
+
+        <ShellContent
+            Title="My Places"
+            ContentTemplate="{DataTemplate views:PlacesListPage}"
+            Icon="map.png"
+            Route="PlacesListPage" />
+
+        <ShellContent
+            Title="Settings"
+            ContentTemplate="{DataTemplate views:SettingsPage}"
+            Icon="settings.png"
+            Route="SettingsPage" />
+
+    </TabBar>
+
+</Shell>

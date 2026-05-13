@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.travellog.app">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/appicon"
+        android:roundIcon="@mipmap/appicon_round"
+        android:supportsRtl="true"
+        android:label="MyTravelLog">
+
+        <!-- FileProvider allows sharing private files with other apps -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.travellog.app.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+    </application>
+
+    <!-- Camera permission -->
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <!-- Location permissions -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <!-- Vibration / haptic feedback -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <!-- Internet for reverse geocoding -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- Storage permissions for sharing -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+                     android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+                     android:maxSdkVersion="28" />
+
+    <!-- Camera hardware feature declaration -->
+    <uses-feature android:name="android.hardware.camera"
+                  android:required="false" />
+    <uses-feature android:name="android.hardware.camera.autofocus"
+                  android:required="false" />
+
+</manifest>

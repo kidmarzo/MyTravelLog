@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MyTravelLog.Views.PlacesListPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:MyTravelLog.ViewModels"
+    xmlns:models="clr-namespace:MyTravelLog.Models"
+    Title="My Places"
+    AutomationProperties.Name="My saved places list">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Text="+ Add"
+            Command="{Binding AddNewPlaceCommand}"
+            AutomationProperties.Name="Add new place"
+            AutomationProperties.HelpText="Navigate to the form to add a new place" />
+    </ContentPage.ToolbarItems>
+
+    <Grid>
+
+        <!-- ── Empty state ── -->
+        <VerticalStackLayout
+            IsVisible="{Binding IsEmpty}"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            Spacing="12"
+            Padding="32"
+            AutomationProperties.Name="Empty state message">
+
+            <Label
+                FontSize="64"
+                HorizontalOptions="Center"
+                Text="🗺️"
+                AutomationProperties.IsInAccessibleTree="False" />
+
+            <Label
+                Style="{StaticResource TitleLabel}"
+                HorizontalOptions="Center"
+                HorizontalTextAlignment="Center"
+                Text="No places saved yet." />
+
+            <Label
+                Style="{StaticResource SubtitleLabel}"
+                HorizontalOptions="Center"
+                HorizontalTextAlignment="Center"
+                Text="Start exploring! Tap '+ Add' to log your first adventure."
+                AutomationProperties.Name="No places saved yet. Start exploring! Tap add to log your first adventure." />
+
+            <Button
+                Style="{StaticResource PrimaryButton}"
+                Text="Add First Place"
+                Command="{Binding AddNewPlaceCommand}"
+                Margin="0,8,0,0"
+                AutomationProperties.Name="Add First Place button"
+                AutomationProperties.HelpText="Navigate to the add place form" />
+        </VerticalStackLayout>
+
+        <!-- ── Places list ── -->
+        <CollectionView
+            IsVisible="{Binding IsEmpty, Converter={StaticResource InverseBoolConverter}}"
+            ItemsSource="{Binding Places}"
+            SelectionMode="None"
+            AutomationProperties.Name="List of saved places">
+
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="0" />
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:PlaceModel">
+                    <SwipeView>
+
+                        <!-- Swipe-to-delete action -->
+                        <SwipeView.RightItems>
+                            <SwipeItems>
+                                <SwipeItem
+                                    Text="Delete"
+                                    IconImageSource="delete.png"
+                                    BackgroundColor="{StaticResource Danger}"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:PlacesListViewModel}}, Path=DeletePlaceCommand}"
+                                    CommandParameter="{Binding .}"
+                                    AutomationProperties.Name="Delete place"
+                                    AutomationProperties.HelpText="Swipe to delete this place entry" />
+                            </SwipeItems>
+                        </SwipeView.RightItems>
+
+                        <!-- Card content -->
+                        <Frame Style="{StaticResource Card}" Margin="16,4,16,4">
+                            <Grid ColumnDefinitions="72,*,24" ColumnSpacing="12">
+
+                                <!-- Thumbnail or placeholder -->
+                                <Frame
+                                    Grid.Column="0"
+                                    CornerRadius="10"
+                                    Padding="0"
+                                    IsClippedToBounds="True"
+                                    HasShadow="False"
+                                    WidthRequest="64"
+                                    HeightRequest="64"
+                                    BackgroundColor="{AppThemeBinding Light={StaticResource SurfaceColor}, Dark={StaticResource DarkSurfaceColor}}">
+                                    <Grid>
+                                        <!-- Photo if available -->
+                                        <Image
+                                            Source="{Binding PhotoPath}"
+                                            Aspect="AspectFill"
+                                            IsVisible="{Binding HasPhoto}"
+                                            AutomationProperties.Name="{Binding Name, StringFormat='Photo of {0}'}" />
+                                        <!-- Placeholder icon when no photo -->
+                                        <Label
+                                            Text="📍"
+                                            FontSize="28"
+                                            HorizontalOptions="Center"
+                                            VerticalOptions="Center"
+                                            IsVisible="{Binding HasPhoto, Converter={StaticResource InverseBoolConverter}}"
+                                            AutomationProperties.IsInAccessibleTree="False" />
+                                    </Grid>
+                                </Frame>
+
+                                <!-- Text details -->
+                                <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="3">
+                                    <Label
+                                        Style="{StaticResource TitleLabel}"
+                                        FontSize="16"
+                                        Text="{Binding Name}"
+                                        AutomationProperties.Name="{Binding Name, StringFormat='Place name: {0}'}" />
+                                    <Label
+                                        Style="{StaticResource SubtitleLabel}"
+                                        FontSize="13"
+                                        Text="{Binding ShortAddress}"
+                                        LineBreakMode="TailTruncation"
+                                        AutomationProperties.Name="{Binding Address, StringFormat='Address: {0}'}" />
+                                    <Label
+                                        Style="{StaticResource CaptionLabel}"
+                                        Text="{Binding FormattedDate}"
+                                        AutomationProperties.Name="{Binding FormattedDate, StringFormat='Date added: {0}'}" />
+                                </VerticalStackLayout>
+
+                                <!-- Chevron -->
+                                <Label
+                                    Grid.Column="2"
+                                    Text="›"
+                                    FontSize="22"
+                                    VerticalOptions="Center"
+                                    TextColor="{AppThemeBinding Light={StaticResource HintTextColor}, Dark={StaticResource DarkHintTextColor}}"
+                                    AutomationProperties.IsInAccessibleTree="False" />
+
+                            </Grid>
+
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:PlacesListViewModel}}, Path=SelectPlaceCommand}"
+                                    CommandParameter="{Binding .}" />
+                            </Frame.GestureRecognizers>
+                        </Frame>
+
+                    </SwipeView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+    </Grid>
+
+</ContentPage>

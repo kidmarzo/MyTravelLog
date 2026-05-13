@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MyTravelLog.Views.AddPlacePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:MyTravelLog.ViewModels"
+    Title="Add New Place"
+    AutomationProperties.Name="Add New Place form page">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Text="Clear"
+            Command="{Binding ClearFormCommand}"
+            AutomationProperties.Name="Clear all form fields"
+            AutomationProperties.HelpText="Clears all entered data and resets the form" />
+    </ContentPage.ToolbarItems>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20,16" Spacing="0">
+
+            <!-- ── Help text ── -->
+            <Frame Style="{StaticResource Card}" BackgroundColor="{AppThemeBinding Light=#EEF4FF, Dark=#1A2D42}">
+                <Label
+                    Style="{StaticResource SubtitleLabel}"
+                    FontSize="13"
+                    Text="📖 Fill in the place name, write about your visit, capture a photo and get your current location. All fields except photo are required. 💡 Shake your phone to clear the form!"
+                    AutomationProperties.Name="Form instructions" />
+            </Frame>
+
+            <!-- ════════════════════════ PLACE NAME ════════════════════════ -->
+            <Label
+                Style="{StaticResource SectionHeader}"
+                Text="PLACE NAME *"
+                AutomationProperties.Name="Place name section" />
+
+            <Border
+                x:Name="PlaceNameBorder"
+                StrokeThickness="1.5"
+                StrokeShape="RoundRectangle 10"
+                Stroke="{AppThemeBinding Light={StaticResource InputBorderColor}, Dark={StaticResource DarkInputBorderColor}}">
+                <Entry
+                    x:Name="PlaceNameEntry"
+                    Style="{StaticResource FormEntry}"
+                    Placeholder="e.g., Central Park"
+                    Text="{Binding PlaceName}"
+                    ReturnType="Next"
+                    AutomationProperties.Name="Place name input"
+                    AutomationProperties.HelpText="Enter the name of the place you visited, minimum 2 characters" />
+            </Border>
+
+            <Label
+                x:Name="PlaceNameErrorLabel"
+                Style="{StaticResource ErrorLabel}"
+                Text="{Binding PlaceNameError}"
+                IsVisible="{Binding PlaceNameError, Converter={StaticResource StringToBoolConverter}}"
+                AutomationProperties.Name="Place name error message" />
+
+            <!-- ════════════════════════ DESCRIPTION ════════════════════════ -->
+            <Label
+                Style="{StaticResource SectionHeader}"
+                Text="DESCRIPTION *"
+                AutomationProperties.Name="Description section" />
+
+            <Border
+                StrokeThickness="1.5"
+                StrokeShape="RoundRectangle 10"
+                Stroke="{AppThemeBinding Light={StaticResource InputBorderColor}, Dark={StaticResource DarkInputBorderColor}}">
+                <Editor
+                    Style="{StaticResource FormEditor}"
+                    Placeholder="Write about your visit..."
+                    Text="{Binding Description}"
+                    HeightRequest="120"
+                    AutomationProperties.Name="Description input"
+                    AutomationProperties.HelpText="Write your notes about this place, minimum 10 characters" />
+            </Border>
+
+            <Label
+                Style="{StaticResource ErrorLabel}"
+                Text="{Binding DescriptionError}"
+                IsVisible="{Binding DescriptionError, Converter={StaticResource StringToBoolConverter}}"
+                AutomationProperties.Name="Description error message" />
+
+            <!-- ════════════════════════ PHOTO ════════════════════════ -->
+            <Label
+                Style="{StaticResource SectionHeader}"
+                Text="PHOTO (OPTIONAL)"
+                AutomationProperties.Name="Photo section" />
+
+            <!-- Preview image – only visible when a photo has been captured -->
+            <Frame
+                Style="{StaticResource Card}"
+                IsVisible="{Binding HasPhoto}"
+                Padding="8"
+                AutomationProperties.Name="Captured photo preview">
+                <Image
+                    Source="{Binding PhotoPath}"
+                    HeightRequest="220"
+                    Aspect="AspectFill"
+                    AutomationProperties.Name="Photo of the place you captured" />
+            </Frame>
+
+            <Button
+                Style="{StaticResource SecondaryButton}"
+                Text="📷  Capture Photo"
+                Command="{Binding CapturePhotoCommand}"
+                IsEnabled="{Binding IsNotBusy}"
+                Margin="0,8,0,0"
+                AutomationProperties.Name="Capture Photo button"
+                AutomationProperties.HelpText="Opens the device camera to take a photo of this place" />
+
+            <!-- ════════════════════════ LOCATION ════════════════════════ -->
+            <Label
+                Style="{StaticResource SectionHeader}"
+                Text="LOCATION *"
+                AutomationProperties.Name="Location section" />
+
+            <!-- Address display -->
+            <Frame Style="{StaticResource Card}" Padding="12">
+                <VerticalStackLayout Spacing="6">
+                    <Label Style="{StaticResource CaptionLabel}" Text="ADDRESS" />
+                    <Label
+                        Style="{StaticResource BodyLabel}"
+                        Text="{Binding Address}"
+                        AutomationProperties.Name="Detected address"
+                        AutomationProperties.HelpText="Address obtained from GPS coordinates" />
+
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="12" Margin="0,4,0,0">
+                        <VerticalStackLayout Grid.Column="0">
+                            <Label Style="{StaticResource CaptionLabel}" Text="LATITUDE" />
+                            <Label
+                                Style="{StaticResource BodyLabel}"
+                                Text="{Binding LatDisplay}"
+                                AutomationProperties.Name="Latitude value" />
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Grid.Column="1">
+                            <Label Style="{StaticResource CaptionLabel}" Text="LONGITUDE" />
+                            <Label
+                                Style="{StaticResource BodyLabel}"
+                                Text="{Binding LonDisplay}"
+                                AutomationProperties.Name="Longitude value" />
+                        </VerticalStackLayout>
+                    </Grid>
+                </VerticalStackLayout>
+            </Frame>
+
+            <Button
+                Style="{StaticResource SecondaryButton}"
+                Text="📍  Get Current Location"
+                Command="{Binding GetLocationCommand}"
+                IsEnabled="{Binding IsNotBusy}"
+                Margin="0,8,0,0"
+                AutomationProperties.Name="Get Current Location button"
+                AutomationProperties.HelpText="Uses GPS to detect your current position and reverse geocode to an address" />
+
+            <!-- ════════════════════════ LOADING ════════════════════════ -->
+            <ActivityIndicator
+                IsRunning="{Binding IsBusy}"
+                IsVisible="{Binding IsBusy}"
+                Color="{StaticResource Primary}"
+                Margin="0,12,0,0"
+                AutomationProperties.Name="Loading indicator"
+                AutomationProperties.HelpText="Please wait while the operation completes" />
+
+            <!-- ════════════════════════ SAVE ════════════════════════ -->
+            <Button
+                Style="{StaticResource PrimaryButton}"
+                Text="💾  Save Place"
+                Command="{Binding SavePlaceCommand}"
+                IsEnabled="{Binding IsNotBusy}"
+                Margin="0,20,0,0"
+                AutomationProperties.Name="Save Place button"
+                AutomationProperties.HelpText="Validates and saves all entered information" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

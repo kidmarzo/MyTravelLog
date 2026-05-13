@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MyTravelLog.Views.PlaceDetailPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:MyTravelLog.ViewModels"
+    Title="Place Details"
+    AutomationProperties.Name="Detailed view of a saved place">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Text="Share"
+            Command="{Binding SharePlaceCommand}"
+            AutomationProperties.Name="Share this place"
+            AutomationProperties.HelpText="Share place details with other apps" />
+    </ContentPage.ToolbarItems>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20,16" Spacing="0">
+
+            <!-- No data fallback -->
+            <Label
+                IsVisible="{Binding CurrentPlace, Converter={StaticResource NullToBoolConverter}}"
+                Style="{StaticResource SubtitleLabel}"
+                HorizontalOptions="Center"
+                Text="Place not found."
+                AutomationProperties.Name="Place not found message" />
+
+            <!-- Photo -->
+            <Frame
+                Style="{StaticResource Card}"
+                IsVisible="{Binding CurrentPlace.HasPhoto}"
+                Padding="0"
+                IsClippedToBounds="True">
+                <Image
+                    Source="{Binding CurrentPlace.PhotoPath}"
+                    HeightRequest="260"
+                    Aspect="AspectFill"
+                    AutomationProperties.Name="{Binding CurrentPlace.Name, StringFormat='Photo of {0}'}" />
+            </Frame>
+
+            <!-- No photo placeholder -->
+            <Frame
+                Style="{StaticResource Card}"
+                IsVisible="{Binding CurrentPlace.HasPhoto, Converter={StaticResource InverseBoolConverter}}"
+                BackgroundColor="{AppThemeBinding Light={StaticResource SurfaceColor}, Dark={StaticResource DarkSurfaceColor}}">
+                <Label
+                    Text="📷"
+                    FontSize="56"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    HeightRequest="100"
+                    AutomationProperties.Name="No photo available for this place" />
+            </Frame>
+
+            <!-- Place Name -->
+            <Label
+                Style="{StaticResource HeadlineLabel}"
+                Text="{Binding CurrentPlace.Name}"
+                Margin="0,16,0,4"
+                AutomationProperties.Name="{Binding CurrentPlace.Name, StringFormat='Place name: {0}'}" />
+
+            <!-- Date -->
+            <Label
+                Style="{StaticResource CaptionLabel}"
+                Text="{Binding CurrentPlace.FormattedDate}"
+                AutomationProperties.Name="{Binding CurrentPlace.FormattedDate, StringFormat='Date visited: {0}'}" />
+
+            <!-- Address and Coordinates -->
+            <Frame Style="{StaticResource Card}" Margin="0,12,0,0">
+                <VerticalStackLayout Spacing="8">
+                    <Label Style="{StaticResource SectionHeader}" Text="LOCATION" Margin="0,0,0,4" />
+
+                    <Grid ColumnDefinitions="24,*" ColumnSpacing="10">
+                        <Label Grid.Column="0" Text="📍" FontSize="16"
+                               AutomationProperties.IsInAccessibleTree="False" />
+                        <Label
+                            Grid.Column="1"
+                            Style="{StaticResource BodyLabel}"
+                            Text="{Binding CurrentPlace.Address}"
+                            AutomationProperties.Name="{Binding CurrentPlace.Address, StringFormat='Address: {0}'}" />
+                    </Grid>
+
+                    <Grid ColumnDefinitions="24,*" ColumnSpacing="10">
+                        <Label Grid.Column="0" Text="🎯" FontSize="16"
+                               AutomationProperties.IsInAccessibleTree="False" />
+                        <Label
+                            Grid.Column="1"
+                            Style="{StaticResource CaptionLabel}"
+                            Text="{Binding CurrentPlace.CoordinatesDisplay}"
+                            AutomationProperties.Name="{Binding CurrentPlace.CoordinatesDisplay, StringFormat='GPS coordinates: {0}'}" />
+                    </Grid>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Description -->
+            <Frame Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="8">
+                    <Label Style="{StaticResource SectionHeader}" Text="DESCRIPTION" Margin="0,0,0,4" />
+                    <Label
+                        Style="{StaticResource BodyLabel}"
+                        Text="{Binding CurrentPlace.Description}"
+                        AutomationProperties.Name="{Binding CurrentPlace.Description, StringFormat='Description: {0}'}" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Actions -->
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="12" Margin="0,8,0,0">
+
+                <!-- Read Aloud button - Text-to-Speech hardware feature -->
+                <Button
+                    Grid.Column="0"
+                    Style="{StaticResource AccentButton}"
+                    Text="🔊  Read Aloud"
+                    Command="{Binding ReadAloudCommand}"
+                    AutomationProperties.Name="Read Aloud button"
+                    AutomationProperties.HelpText="Uses text-to-speech to read the place description out loud" />
+
+                <!-- Share button -->
+                <Button
+                    Grid.Column="1"
+                    Style="{StaticResource SecondaryButton}"
+                    Text="↗  Share"
+                    Command="{Binding SharePlaceCommand}"
+                    AutomationProperties.Name="Share button"
+                    AutomationProperties.HelpText="Share place details using the device share sheet" />
+
+            </Grid>
+
+            <!-- Speaking indicator -->
+            <Label
+                IsVisible="{Binding IsSpeaking}"
+                Style="{StaticResource CaptionLabel}"
+                HorizontalOptions="Center"
+                Margin="0,8,0,0"
+                Text="🔊 Reading aloud... Tap again to stop."
+                AutomationProperties.Name="Currently reading aloud. Tap Read Aloud again to stop." />
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

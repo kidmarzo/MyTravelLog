@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MyTravelLog.Views.HomePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:MyTravelLog.ViewModels"
+    Title="Home"
+    AutomationProperties.Name="Home page of MyTravelLog application">
+
+    <ScrollView>
+        <Grid Padding="20,0,20,32" RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!-- ── Hero Header ── -->
+            <VerticalStackLayout
+                Grid.Row="0"
+                Padding="0,32,0,16"
+                Spacing="8">
+
+                <Label
+                    HorizontalOptions="Center"
+                    FontSize="52"
+                    Text="🌍"
+                    AutomationProperties.IsInAccessibleTree="False" />
+
+                <Label
+                    Style="{StaticResource HeadlineLabel}"
+                    HorizontalOptions="Center"
+                    HorizontalTextAlignment="Center"
+                    Text="MyTravelLog"
+                    FontSize="32"
+                    AutomationProperties.Name="MyTravelLog app title" />
+
+                <Label
+                    Style="{StaticResource SubtitleLabel}"
+                    HorizontalOptions="Center"
+                    HorizontalTextAlignment="Center"
+                    Text="Capture your adventures, one place at a time."
+                    AutomationProperties.Name="App tagline" />
+            </VerticalStackLayout>
+
+            <!-- ── Divider ── -->
+            <BoxView
+                Grid.Row="1"
+                HeightRequest="1"
+                Margin="0,0,0,16"
+                Color="{AppThemeBinding Light={StaticResource DividerColor}, Dark={StaticResource DarkDividerColor}}" />
+
+            <!-- ── Navigation Cards ── -->
+            <VerticalStackLayout
+                Grid.Row="2"
+                Spacing="12">
+
+                <!-- Add New Place card -->
+                <Frame Style="{StaticResource Card}">
+                    <Grid ColumnDefinitions="56,*" ColumnSpacing="16">
+                        <Frame
+                            Grid.Column="0"
+                            BackgroundColor="{StaticResource Primary}"
+                            CornerRadius="14"
+                            Padding="10"
+                            WidthRequest="52"
+                            HeightRequest="52"
+                            HasShadow="False">
+                            <Label
+                                Text="📍"
+                                FontSize="22"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                AutomationProperties.IsInAccessibleTree="False" />
+                        </Frame>
+
+                        <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="4">
+                            <Label Style="{StaticResource TitleLabel}" Text="Add New Place" FontSize="17" />
+                            <Label Style="{StaticResource SubtitleLabel}" Text="Log a new location with photo, GPS and notes." FontSize="13" />
+                        </VerticalStackLayout>
+                    </Grid>
+
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding GoToAddPlaceCommand}" />
+                    </Frame.GestureRecognizers>
+                </Frame>
+
+                <!-- View My Places card -->
+                <Frame Style="{StaticResource Card}">
+                    <Grid ColumnDefinitions="56,*" ColumnSpacing="16">
+                        <Frame
+                            Grid.Column="0"
+                            BackgroundColor="{StaticResource Accent}"
+                            CornerRadius="14"
+                            Padding="10"
+                            WidthRequest="52"
+                            HeightRequest="52"
+                            HasShadow="False">
+                            <Label
+                                Text="🗺️"
+                                FontSize="22"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                AutomationProperties.IsInAccessibleTree="False" />
+                        </Frame>
+
+                        <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="4">
+                            <Label Style="{StaticResource TitleLabel}" Text="My Places" FontSize="17" />
+                            <Label Style="{StaticResource SubtitleLabel}" Text="Browse and manage all your saved travel memories." FontSize="13" />
+                        </VerticalStackLayout>
+                    </Grid>
+
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding GoToPlacesListCommand}" />
+                    </Frame.GestureRecognizers>
+                </Frame>
+
+                <!-- Settings card -->
+                <Frame Style="{StaticResource Card}">
+                    <Grid ColumnDefinitions="56,*" ColumnSpacing="16">
+                        <Frame
+                            Grid.Column="0"
+                            BackgroundColor="{StaticResource PrimaryLight}"
+                            CornerRadius="14"
+                            Padding="10"
+                            WidthRequest="52"
+                            HeightRequest="52"
+                            HasShadow="False">
+                            <Label
+                                Text="⚙️"
+                                FontSize="22"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                AutomationProperties.IsInAccessibleTree="False" />
+                        </Frame>
+
+                        <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="4">
+                            <Label Style="{StaticResource TitleLabel}" Text="Settings" FontSize="17" />
+                            <Label Style="{StaticResource SubtitleLabel}" Text="Adjust theme, font size and accessibility options." FontSize="13" />
+                        </VerticalStackLayout>
+                    </Grid>
+
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding GoToSettingsCommand}" />
+                    </Frame.GestureRecognizers>
+                </Frame>
+
+            </VerticalStackLayout>
+
+            <!-- ── User instruction ── -->
+            <Label
+                Grid.Row="3"
+                Style="{StaticResource CaptionLabel}"
+                HorizontalOptions="Center"
+                HorizontalTextAlignment="Center"
+                Margin="0,24,0,0"
+                Text="Tap any card to begin"
+                AutomationProperties.Name="Instruction: Tap any card to begin" />
+
+        </Grid>
+    </ScrollView>
+
+</ContentPage>

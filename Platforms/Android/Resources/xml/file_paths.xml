@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <!-- App cache directory where photos are saved -->
+    <cache-path
+        name="camera_photos"
+        path="." />
+
+    <!-- App internal files directory -->
+    <files-path
+        name="app_files"
+        path="." />
+
+    <!-- External cache if needed -->
+    <external-cache-path
+        name="external_cache"
+        path="." />
+</paths>

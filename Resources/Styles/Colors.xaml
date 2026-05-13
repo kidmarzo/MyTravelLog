@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <!-- ════════════════════════════════════════════════
+         BRAND PALETTE
+         ════════════════════════════════════════════════ -->
+    <Color x:Key="Primary">#1A3C5E</Color>
+    <Color x:Key="PrimaryLight">#2E6DA4</Color>
+    <Color x:Key="PrimaryDark">#0F2338</Color>
+    <Color x:Key="Accent">#F4A020</Color>
+    <Color x:Key="AccentLight">#F7B84B</Color>
+    <Color x:Key="Danger">#D64045</Color>
+    <Color x:Key="Success">#2E8B57</Color>
+    <Color x:Key="Warning">#E87722</Color>
+
+    <!-- ════════════════════════════════════════════════
+         LIGHT THEME SEMANTICS
+         ════════════════════════════════════════════════ -->
+    <Color x:Key="AppBackgroundColor">#F5F7FA</Color>
+    <Color x:Key="CardBackgroundColor">#FFFFFF</Color>
+    <Color x:Key="SurfaceColor">#EDF0F5</Color>
+    <Color x:Key="PrimaryTextColor">#1A1A2E</Color>
+    <Color x:Key="SecondaryTextColor">#5A6478</Color>
+    <Color x:Key="HintTextColor">#9AA3B2</Color>
+    <Color x:Key="DividerColor">#E0E4EC</Color>
+    <Color x:Key="InputBackgroundColor">#FFFFFF</Color>
+    <Color x:Key="InputBorderColor">#CDD2DC</Color>
+    <Color x:Key="ShadowColor">#1A000000</Color>
+
+    <!-- ════════════════════════════════════════════════
+         DARK THEME SEMANTICS  (AppThemeBinding targets)
+         ════════════════════════════════════════════════ -->
+    <Color x:Key="DarkAppBackgroundColor">#0D1B2A</Color>
+    <Color x:Key="DarkCardBackgroundColor">#1A2D42</Color>
+    <Color x:Key="DarkSurfaceColor">#243447</Color>
+    <Color x:Key="DarkPrimaryTextColor">#E8EDF5</Color>
+    <Color x:Key="DarkSecondaryTextColor">#9AAEC8</Color>
+    <Color x:Key="DarkHintTextColor">#5A7A99</Color>
+    <Color x:Key="DarkDividerColor">#253549</Color>
+    <Color x:Key="DarkInputBackgroundColor">#1F3248</Color>
+    <Color x:Key="DarkInputBorderColor">#2E4A6A</Color>
+
+</ResourceDictionary>
