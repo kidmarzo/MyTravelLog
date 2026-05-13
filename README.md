@@ -183,8 +183,7 @@ MyTravelLog/
     ├── 5.png
     ├── 6.png
     ├── 7.png
-    ├── 8.png
-    └── w1.png ... w9.png
+    └── 8.png
 
 ---
 
